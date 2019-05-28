@@ -13,3 +13,5 @@ Learning CPP and wanted to store all my application I have created!
     * We can now use bellow to build the .cpp application 
         * g++ ./{name}.cpp -o [name]
         * ./[name]
+* For review, #include is a preprocessor directive that tells the compiler to include whatever library that follows.
+    * example #include <vector>
