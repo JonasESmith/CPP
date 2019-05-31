@@ -50,4 +50,8 @@ Learning CPP and wanted to store all my application I have created!
 
     * oh neat we can destroy OBJECTS! >:) with ...
         * ` City::~City() { ... } `
+
+* References and Pointers
+    * References   
+        * ` int &sonny = songqiao` will reference the same variables, any changes made to sonny or songqiao will also be made to the other. 
     
