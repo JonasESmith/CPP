@@ -58,4 +58,9 @@ Learning CPP and wanted to store all my application I have created!
         * We can get the address of a variable with ` std::cout << &variable_name << " \n";`
         * note from CodeAcadamy ``` While references are a newer mechanism that originated in C++, pointers are an older mechnaism that was inherited from C. We recommend avoiding pointers as much as possible;  ```
         * just like & before a variable stood for a reference with pointers we use ` *int, *double, etc..`
+        * the `*` can be called the dereference operator.
+        * When `*` is used in a declaration, it is creating a pointers.
+        * When `*` is not used in a declaration, it is a dereference operator. 
+        * We should try and avaoid settings `int* pointer;` as this points somewhere in memory and that is dangerouse. 
+        * Instead we should use `int* ptr = nullprt`
     
