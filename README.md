@@ -1,4 +1,4 @@
-# CPP
+# C++
 Learning CPP and wanted to store all my application I have created!
 
 * Getting started - for a noob
