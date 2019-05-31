@@ -35,6 +35,19 @@ Learning CPP and wanted to store all my application I have created!
         * `     T get_values(T num1, T num2) {...}`
 
 * Classes notes
+    * Classes are user-defined types.
+    * Objects are instances of classes.
     * Classes have the form of
         * ` class class_Name { .... }; `
+    * Components of a class are called class members, you can get access to these the same way you would using .length() on a string
+        * by using objectName.class_member
+        * There are two types of class members
+            * Attributes, also known as member data, consisting of information about an instance of a class.
+            * Methods, Also known as member functions, are functions that you can use with an instance of the class. 
+    * Creating a new Object from a class is called an instantiation.
+    * C++ classes have public and private domains for encapsulation just like C# classes
+    * C++ classes also have access to Constructors!
+
+    * oh neat we can destroy OBJECTS! >:) with ...
+        * ` City::~City() { ... } `
     

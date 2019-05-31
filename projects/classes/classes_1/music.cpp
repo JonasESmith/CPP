@@ -3,10 +3,11 @@
 
 int main() {
 
-    Song touch_song;
-
-    touch_song.add_title("Touch by daft punk");
-
-    std::cout << touch_song.get_title();
-
+  Song electric_relaxation;
+  
+  electric_relaxation.add_artist("A Tribe Called Quest");
+  
+  std::cout << electric_relaxation.get_artist();
+  
+  
 }
