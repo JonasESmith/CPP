@@ -33,3 +33,8 @@ Learning CPP and wanted to store all my application I have created!
     * as well a function template enables a function to behave the same with different types of parameters.
         * `ie.  template <typename T> `
         * `     T get_values(T num1, T num2) {...}`
+
+* Classes notes
+    * Classes have the form of
+        * ` class class_Name { .... }; `
+    
