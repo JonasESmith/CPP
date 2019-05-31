@@ -1,0 +1,7 @@
+﻿  element_in_vector.cpp
+C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\element_in_vector\element_in_vector.cpp(13,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\element_in_vector\element_in_vector.cpp(32,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\element_in_vector\element_in_vector.cpp(62,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\element_in_vector\element_in_vector.cpp(64,25): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\element_in_vector\element_in_vector.cpp(76,20): warning C4018:  '<': signed/unsigned mismatch
+  element_in_vector.vcxproj -> C:\Users\Jonas\Desktop\gitProj\CPP\projects\First_CPP_Application\Debug\element_in_vector.exe
