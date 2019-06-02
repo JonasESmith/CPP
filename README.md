@@ -63,4 +63,8 @@ Learning CPP and wanted to store all my application I have created!
         * When `*` is not used in a declaration, it is a dereference operator. 
         * We should try and avaoid settings `int* pointer;` as this points somewhere in memory and that is dangerouse. 
         * Instead we should use `int* ptr = nullprt`
+
+* SFML
+    * For linking the libararies to a project directory! - https://www.sfml-dev.org/tutorials/2.5/start-vc.php
+    * 
     
