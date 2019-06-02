@@ -9,7 +9,7 @@ Learning CPP and wanted to store all my application I have created!
         * Environmental Variables
         * System variables
             * Double click path
-        * New path to the wingw installation directory. 
+        * New path to the wingw/bin installation directory. 
     * We can now use bellow to build the .cpp application 
         * g++ ./{name}.cpp -o [name]
         * ./[name]
