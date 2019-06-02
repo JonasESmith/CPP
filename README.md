@@ -65,6 +65,6 @@ Learning CPP and wanted to store all my application I have created!
         * Instead we should use `int* ptr = nullprt`
 
 * SFML
-    * For linking the libararies to a project directory! - https://www.sfml-dev.org/tutorials/2.5/start-vc.php
+    * For setting up an environment with winGW and SFML - https://www.youtube.com/watch?v=UM93glM0Fhs
     * 
     
