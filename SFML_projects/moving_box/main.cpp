@@ -10,7 +10,6 @@ using namespace std;
 double decideMove(double mouseVal, double rectVal, int movement);
 void UpdateMethod(sf::Time elapsed);
 
-
 sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "Moving Box" );
 sf::Vector2i mousePos;
 
@@ -45,7 +44,7 @@ int main( int argc, char** argv )
 
 void UpdateMethod(sf::Time elapsed)
 {
-	int movementRate = 1;
+	int movementRate = 10;
 
 	sf::RectangleShape rectangle;
 
@@ -61,13 +60,15 @@ void UpdateMethod(sf::Time elapsed)
 	{
 		xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
 		rectangle.move(xValue ,rectangle.getPosition().y);
+		rectangle.setPosition(xValue, rectangle.getPosition().y);
 	}
 
-	if(rectangle.getPosition().y != mousePos.y)
-	{
-		yValue = decideMove(mousePos.y, rectangle.getPosition().y, movementRate);
-		rectangle.move(rectangle.getPosition().x, yValue);
-	}
+	// if(rectangle.getPosition().y != mousePos.y)
+	// {
+	// 	yValue = decideMove(mousePos.y, rectangle.getPosition().y, movementRate);
+	// 	rectangle.move(rectangle.getPosition().x, rectangle.getPosition().y + 1);
+	// }
+	appWindow.clear(sf::Color::Black);
 
 	appWindow.draw(rectangle);
 
@@ -77,16 +78,12 @@ void UpdateMethod(sf::Time elapsed)
 
 double decideMove(double mouseVal, double rectVal, int movement)
 {
-	double value = rectVal;
+	double value = mouseVal;
 
-	if(mouseVal > rectVal)
-	{
-		value = value + movement;
-	}
-	else
-	{
-		value = value - movement;	
-	}
+	// if(mouseVal > rectVal)
+	// 	value = value + movement;
+	// else
+	// 	value = value - movement;	
 	
 	return value;
 }
