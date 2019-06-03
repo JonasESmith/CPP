@@ -13,12 +13,10 @@ sf::VertexArray vertices(sf::LinesStrip, 3);
 
 int main( int argc, char** argv )
 {
-	sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "App" );
+	sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "Weird Drawing" );
 	sf::Event appEvent;
 	
 	sf::Vertex firstVertex;
-	sf::Vertex lastVertex;
-	sf::Vertex nextVertex;
 	int count = 0;
 	double circleRadius = 50.0f;
 
@@ -31,60 +29,53 @@ int main( int argc, char** argv )
 				appWindow.close();
 		}
 		
-		// clears the window with a black color
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		if(count == 0)
+		{
 			appWindow.clear(sf::Color::White);
+		}
+
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			vertices.clear();
+			appWindow.clear(sf::Color::White);
+		}
 
 		// get location of mouse (x,y)
 			sf::Vector2i position = sf::Mouse::getPosition(appWindow);
 		
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			sf::CircleShape point(3.0f);
+		{	
+			count++;
+
+			sf::CircleShape point(1.5f);
 
 			point.setFillColor(sf::Color::Red);
 			point.move(position.x, position.y);
 
 			appWindow.draw(point);
 
-			if(count == 0)
-			{
-				firstVertex.position.x = position.x;
-				firstVertex.position.y = position.y;
-			}
-			if(count == 1)
-			{
-				nextVertex.position.x = position.x;
-				nextVertex.position.y = position.y;
-			}
-			else
-			{
-				lastVertex = nextVertex;
+			firstVertex.position.x = position.x;
+			firstVertex.position.y = position.y;
 
-				nextVertex.position.x = position.x;
-				nextVertex.position.y = position.y;
-			}
-			
-			count++;
+			vertices.append(firstVertex);
+			vertices[vertices.getVertexCount() - 9].color = sf::Color::Black;
 		}
 
-		if(vertices.getVertexCount() > 1)
+		sf::VertexArray lines(sf::LineStrip, vertices.getVertexCount());
+
+		for(int i = 0; i < vertices.getVertexCount(); i++)
 		{
-			sf::VertexArray lines(sf::LineStrip, 3);
-			lines[0].position = firstVertex.position;
-			lines[0].color = sf::Color::Black;
-			lines[1].position = lastVertex.position;
-			lines[1].color = sf::Color::Black;
-			lines[2].position = nextVertex.position;
-			lines[2].color = sf::Color::Black;
-
-			appWindow.draw(lines);
+			lines[i].position = vertices[i].position;
+			lines[i].color = vertices[i].color;
 		}
+
+		appWindow.draw(lines);
+
 
 		// end the current frame
 		appWindow.display();
 
-		std::cout << position.x << " , " << position.y << std::endl;
+		std::cout << position.x << " , " << position.y << " - " << vertices.getVertexCount() << " - " << vertices[vertices.getVertexCount()].position.x << std::endl;
 	}
 	
 	return 0;
