@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Mouse.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
 int main( int argc, char** argv )
