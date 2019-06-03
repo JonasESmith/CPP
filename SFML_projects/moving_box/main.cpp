@@ -37,6 +37,9 @@ int main( int argc, char** argv )
 		mousePos = sf::Mouse::getPosition(appWindow);
 
 		UpdateMethod(elapsed);
+
+		mousePos.x = 0; 
+		mousePos.y = 0;
 	}
 	
 	return 0;
@@ -44,7 +47,7 @@ int main( int argc, char** argv )
 
 void UpdateMethod(sf::Time elapsed)
 {
-	int movementRate = 10;
+	int movementRate = 1;
 
 	sf::RectangleShape rectangle;
 
@@ -58,32 +61,39 @@ void UpdateMethod(sf::Time elapsed)
 	// rectangle AI!
 	if(rectangle.getPosition().x != mousePos.x)
 	{
-		xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
-		rectangle.move(xValue ,rectangle.getPosition().y);
-		rectangle.setPosition(xValue, rectangle.getPosition().y);
+		xValue = rectangle.getPosition().x;
+
+		//xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
+		rectangle.move(decideMove(mousePos.x, rectangle.getPosition().x, elapsed.asSeconds() * movementRate), 
+					   rectangle.getPosition().y );
+		rectangle.setPosition(decideMove(mousePos.x, rectangle.getPosition().x, elapsed.asSeconds() * movementRate), 
+					   rectangle.getPosition().y );
 	}
 
-	// if(rectangle.getPosition().y != mousePos.y)
-	// {
-	// 	yValue = decideMove(mousePos.y, rectangle.getPosition().y, movementRate);
-	// 	rectangle.move(rectangle.getPosition().x, rectangle.getPosition().y + 1);
-	// }
+	if(rectangle.getPosition().y != mousePos.y)
+	{
+		rectangle.move(rectangle.getPosition().x , 
+					   decideMove(mousePos.y ,rectangle.getPosition().y, elapsed.asSeconds() * movementRate));
+		rectangle.setPosition(rectangle.getPosition().x , 
+					   decideMove(mousePos.y ,rectangle.getPosition().y, elapsed.asSeconds() * movementRate));	   
+	}
+
 	appWindow.clear(sf::Color::Black);
 
 	appWindow.draw(rectangle);
 
 	appWindow.display();
-	std::cout << elapsed.asSeconds() << " - " << mousePos.x << " " << rectangle.getPosition().x << endl;
+	std::cout << rectangle.getPosition().x << ":" << mousePos.x << " - " << rectangle.getPosition().y << ":" << mousePos.y << endl;
 }
 
 double decideMove(double mouseVal, double rectVal, int movement)
 {
-	double value = mouseVal;
+	double value = rectVal;
 
-	// if(mouseVal > rectVal)
-	// 	value = value + movement;
-	// else
-	// 	value = value - movement;	
+	if(mouseVal > rectVal)
+		value = value + movement;
+	else
+		value = value - movement;	
 	
 	return value;
 }
