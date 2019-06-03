@@ -30,13 +30,19 @@ int main( int argc, char** argv )
 		
 		// creates circle
 		sf::CircleShape shape(50.0f);
-		// set the shape color
+		// set the shape color to be dynamic based on location of cursor
 		shape.setFillColor(sf::Color(normalize(position.y ,appWindow.getSize().y),
 									 normalize(position.x ,appWindow.getSize().x), 
 									 normalize((position.x + position.y) / 2, (appWindow.getSize().x + appWindow.getSize().y) / 2)));
-		// set a 10-pixel wide orange outline
-		shape.setOutlineThickness(10.f);
-		shape.setOutlineColor(sf::Color(250, 150, 100));
+		
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			// set a 1-px outline with a dynamic color
+			shape.setOutlineThickness(1.f);
+			shape.setOutlineColor(sf::Color(normalize(position.y ,appWindow.getSize().y),
+									 	normalize(position.x ,appWindow.getSize().x), 
+										normalize((position.x + position.y) / 2, (appWindow.getSize().x + appWindow.getSize().y) / 2)));
+		}
 
 
 		shape.move(position.x - circleRadius, position.y - circleRadius);
