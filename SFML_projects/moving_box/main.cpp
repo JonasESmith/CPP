@@ -87,6 +87,7 @@ bool UpdateMethod(sf::Time elapsed, bool keepGoing)
 		keepGoing = true;
 	}
 	
+	rectangle.getTransform();
 
 	// appWindow.clear(sf::Color::Black);
 
