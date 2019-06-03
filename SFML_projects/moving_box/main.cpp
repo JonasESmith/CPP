@@ -45,7 +45,7 @@ int main( int argc, char** argv )
 
 void UpdateMethod(sf::Time elapsed)
 {
-	int movementRate = 10;
+	int movementRate = 1;
 
 	sf::RectangleShape rectangle;
 
@@ -53,10 +53,20 @@ void UpdateMethod(sf::Time elapsed)
 
 	rectangle.setFillColor(sf::Color(100,100,100));
 
+	double xValue;
+	double yValue;
+
 	// rectangle AI!
-	if(rectangle.getPosition().x != mousePos.x && rectangle.getPosition().y != mousePos.y )
+	if(rectangle.getPosition().x != mousePos.x)
 	{
-		rectangle.move(decideMove(mousePos.x, rectangle.getPosition().x, movementRate), decideMove(mousePos.y, rectangle.getPosition().y, movementRate));
+		xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
+		rectangle.move(xValue ,rectangle.getPosition().y);
+	}
+
+	if(rectangle.getPosition().y != mousePos.y)
+	{
+		yValue = decideMove(mousePos.y, rectangle.getPosition().y, movementRate);
+		rectangle.move(rectangle.getPosition().x, yValue);
 	}
 
 	appWindow.draw(rectangle);
@@ -71,11 +81,11 @@ double decideMove(double mouseVal, double rectVal, int movement)
 
 	if(mouseVal > rectVal)
 	{
-		value + movement;
+		value = value + movement;
 	}
 	else
 	{
-		value - movement;	
+		value = value - movement;	
 	}
 	
 	return value;
