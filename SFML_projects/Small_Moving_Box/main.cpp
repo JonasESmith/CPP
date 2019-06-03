@@ -1,6 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics.hpp> // allows us to draw and update windows.
+#include <SFML/Window/Mouse.hpp> // allows us to retrieve the mouse.
 #include <iostream>
+#include <ostream> // purely to use std::endl :)
 
 int main( int argc, char** argv )
 {
@@ -8,6 +9,7 @@ int main( int argc, char** argv )
 	sf::Event appEvent;
 	
 	int count = 1;
+	double circleRadius = 50.0f;
 
 	// runs the program as long as the window is open
 	while ( appWindow.isOpen() )
@@ -31,18 +33,19 @@ int main( int argc, char** argv )
 		shape.setOutlineThickness(10.f);
 		shape.setOutlineColor(sf::Color(250, 150, 100));
 
+
+		sf::Vector2i position = sf::Mouse::getPosition(appWindow);
+
+		shape.move(position.x - circleRadius, position.y - circleRadius);
+
 		// draws the circle shape we have created
 		appWindow.draw(shape);
-
-		sf::Vector2i position = sf::Mouse::getPosition();
-
-		shape.move(position.x, position.y);
 
 		// end the current frame
 		appWindow.display();
 
-		count++;
-		std::cout << count << "\n";
+		count;
+		std::cout << position.x << " , " << position.y << std::endl;
 	}
 	
 	return 0;
