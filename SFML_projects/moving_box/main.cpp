@@ -1,20 +1,26 @@
+// https://www.redblobgames.com/pathfinding/a-star/introduction.html
+
 #include <SFML/Graphics.hpp> // allows us to draw and update windows.
 #include <SFML/Window/Mouse.hpp> // allows us to retrieve the mouse.
 #include <iostream> // output to console for random information for myself.
 #include <ostream> // purely to use std::endl :)
-#include <vector>
+#include <vector> 
 #include <SFML/Graphics/Vertex.hpp>
+#include <math.h>
 
 using namespace std;
 
 double decideMove(double mouseVal, double rectVal, int movement);
-void UpdateMethod(sf::Time elapsed);
+bool UpdateMethod(sf::Time elapsed, bool keepGoing);
 
 sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "Moving Box" );
 sf::Vector2i mousePos;
 
+int movementRate = 10;
+
 int main( int argc, char** argv )
 {
+	sf::Clock clock;
 	sf::VertexArray vertices(sf::LinesStrip, 3);
 	sf::Event appEvent;
 	
@@ -22,7 +28,7 @@ int main( int argc, char** argv )
 	int count = 0;
 	double circleRadius = 50.0f;
 
-	sf::Clock clock;
+	bool restart = false;
 
 	// runs the program as long as the window is open
 	while ( appWindow.isOpen() )
@@ -34,21 +40,16 @@ int main( int argc, char** argv )
 		}
 		
 		sf::Time elapsed = clock.getElapsedTime();
-		mousePos = sf::Mouse::getPosition(appWindow);
+		mousePos = sf::Vector2i(50,50); //sf::Mouse::getPosition(appWindow);
 
-		UpdateMethod(elapsed);
-
-		mousePos.x = 0; 
-		mousePos.y = 0;
+		restart = UpdateMethod(elapsed, restart);
 	}
 	
 	return 0;
 }
 
-void UpdateMethod(sf::Time elapsed)
+bool UpdateMethod(sf::Time elapsed, bool keepGoing)
 {
-	int movementRate = 1;
-
 	sf::RectangleShape rectangle;
 
 	rectangle.setSize(sf::Vector2f(50,50));
@@ -58,32 +59,43 @@ void UpdateMethod(sf::Time elapsed)
 	double xValue;
 	double yValue;
 
-	// rectangle AI!
-	if(rectangle.getPosition().x != mousePos.x)
-	{
-		xValue = rectangle.getPosition().x;
+	// // rectangle AI!
+	// if(rectangle.getPosition().x != mousePos.x)
+	// {
+	// 	//xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
+	// 	rectangle.move(decideMove(mousePos.x, rectangle.getPosition().x, elapsed.asSeconds() * movementRate), 
+	// 				   rectangle.getPosition().y );
+	// }
 
-		//xValue = decideMove(mousePos.x, rectangle.getPosition().x, movementRate);
-		rectangle.move(decideMove(mousePos.x, rectangle.getPosition().x, elapsed.asSeconds() * movementRate), 
-					   rectangle.getPosition().y );
-		rectangle.setPosition(decideMove(mousePos.x, rectangle.getPosition().x, elapsed.asSeconds() * movementRate), 
-					   rectangle.getPosition().y );
+	if( ceil(elapsed.asSeconds()) * movementRate != ceil(mousePos.x) && !keepGoing)
+	{	
+		rectangle.move(decideMove(mousePos.y ,rectangle.getPosition().y, ceil(elapsed.asSeconds() * movementRate) ) , 
+					   rectangle.getPosition().y);
 	}
-
-	if(rectangle.getPosition().y != mousePos.y)
+	else
 	{
+		keepGoing = true;
+	}
+	
+	if( ceil(elapsed.asSeconds()) * movementRate != ceil(mousePos.y) && !keepGoing)
+	{	
 		rectangle.move(rectangle.getPosition().x , 
-					   decideMove(mousePos.y ,rectangle.getPosition().y, elapsed.asSeconds() * movementRate));
-		rectangle.setPosition(rectangle.getPosition().x , 
-					   decideMove(mousePos.y ,rectangle.getPosition().y, elapsed.asSeconds() * movementRate));	   
+					   decideMove(mousePos.y ,rectangle.getPosition().y, ceil(elapsed.asSeconds() * movementRate) ));
 	}
+	else
+	{
+		keepGoing = true;
+	}
+	
 
-	appWindow.clear(sf::Color::Black);
+	// appWindow.clear(sf::Color::Black);
 
 	appWindow.draw(rectangle);
 
 	appWindow.display();
-	std::cout << rectangle.getPosition().x << ":" << mousePos.x << " - " << rectangle.getPosition().y << ":" << mousePos.y << endl;
+	std::cout << elapsed.asSeconds() * movementRate << ":" << mousePos.x << " - " << ceil(elapsed.asSeconds() * movementRate) << ":" << ceil(mousePos.y) << endl;
+
+	return keepGoing;
 }
 
 double decideMove(double mouseVal, double rectVal, int movement)
