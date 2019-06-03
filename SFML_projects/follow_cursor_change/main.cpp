@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp> // allows us to draw and update windows.
 #include <SFML/Window/Mouse.hpp> // allows us to retrieve the mouse.
-#include <iostream>
+#include <iostream> // output to console for random information for myself.
 #include <ostream> // purely to use std::endl :)
 
 double normalize(double mouseX, double maxWin);
@@ -11,6 +11,8 @@ int main( int argc, char** argv )
 	sf::Event appEvent;
 	
 	double circleRadius = 50.0f;
+
+	double red, green, blue;
 
 	// runs the program as long as the window is open
 	while ( appWindow.isOpen() )
@@ -37,12 +39,14 @@ int main( int argc, char** argv )
 		
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			// set a 1-px outline with a dynamic color
-			shape.setOutlineThickness(1.f);
-			shape.setOutlineColor(sf::Color(normalize(position.y ,appWindow.getSize().y),
-									 	normalize(position.x ,appWindow.getSize().x), 
-										normalize((position.x + position.y) / 2, (appWindow.getSize().x + appWindow.getSize().y) / 2)));
+			red = normalize(position.y ,appWindow.getSize().y);
+			green = normalize(position.x ,appWindow.getSize().x);
+			blue = normalize((position.x + position.y) / 2, (appWindow.getSize().x + appWindow.getSize().y) / 2);
 		}
+		
+			// set a 1-px outline with a dynamic color
+			shape.setOutlineThickness(10.f);
+			shape.setOutlineColor(sf::Color(red, green, blue));
 
 
 		shape.move(position.x - circleRadius, position.y - circleRadius);
