@@ -29,7 +29,6 @@ int main( int argc, char** argv )
 		// get location of mouse (x,y)
 		sf::Vector2i position = sf::Mouse::getPosition(appWindow);
 		
-		
 		// creates circle
 		sf::CircleShape shape(50.0f);
 		// set the shape color to be dynamic based on location of cursor
