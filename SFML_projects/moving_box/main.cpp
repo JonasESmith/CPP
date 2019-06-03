@@ -7,9 +7,12 @@
 
 using namespace std;
 
+double decideMove(double mouseVal, double rectVal, int movement);
+void UpdateMethod(sf::Time elapsed);
 
-void updateGame(sf::Time elapsed);
-sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "Weird Drawing" );
+
+sf::RenderWindow appWindow( sf::VideoMode( 800, 600, 32 ), "Moving Box" );
+sf::Vector2i mousePos;
 
 int main( int argc, char** argv )
 {
@@ -31,26 +34,49 @@ int main( int argc, char** argv )
 				appWindow.close();
 		}
 		
-		sf::Time elapsed = clock.restart();
+		sf::Time elapsed = clock.getElapsedTime();
+		mousePos = sf::Mouse::getPosition(appWindow);
 
-		updateGame(elapsed);
+		UpdateMethod(elapsed);
 	}
 	
 	return 0;
 }
 
-void updateGame(sf::Time elapsed)
+void UpdateMethod(sf::Time elapsed)
 {
+	int movementRate = 10;
+
 	sf::RectangleShape rectangle;
 
 	rectangle.setSize(sf::Vector2f(50,50));
 
 	rectangle.setFillColor(sf::Color(100,100,100));
 
-	rectangle.move(100 + elapsed.asSeconds(), 100 + elapsed.asSeconds());
+	// rectangle AI!
+	if(rectangle.getPosition().x != mousePos.x && rectangle.getPosition().y != mousePos.y )
+	{
+		rectangle.move(decideMove(mousePos.x, rectangle.getPosition().x, movementRate), decideMove(mousePos.y, rectangle.getPosition().y, movementRate));
+	}
 
 	appWindow.draw(rectangle);
 
 	appWindow.display();
-	std::cout << "What up pimp : " << elapsed.asSeconds() << endl;
+	std::cout << elapsed.asSeconds() << " - " << mousePos.x << " " << rectangle.getPosition().x << endl;
+}
+
+double decideMove(double mouseVal, double rectVal, int movement)
+{
+	double value = rectVal;
+
+	if(mouseVal > rectVal)
+	{
+		value + movement;
+	}
+	else
+	{
+		value - movement;	
+	}
+	
+	return value;
 }
