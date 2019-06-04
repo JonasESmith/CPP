@@ -7,6 +7,8 @@
 using namespace std;
 
 std::string removeSpaces(string inputValue);
+void addToList(int i, string newLine);
+void writeToFile();
 
 vector<string> codeVector;
 
@@ -26,29 +28,30 @@ int main() {
         }
     }
 
-    string lineBefore = "{";
+    myFile.close();
 
+    int lineToAdd;
+    string lineBefore = "{";
+    // this is very basic but adds a basic output string
     for(int i = 0; i < codeVector.size(); i++)
     {
-        cout << codeVector[i] << "\n";
         if( removeSpaces( codeVector[i]) == removeSpaces( lineBefore))
         {
-            cout << "    // They are equal!\n";
+            lineToAdd = i++;
         }
     }
 
-    int i;
-    printf ("Checking if processor is available...");
-    if (system(NULL)) puts ("Ok");
-        else exit (EXIT_FAILURE);
-    printf ("Executing command DIR...\n");
-    i=system ("dir");
-    printf ("The value returned was: %d.\n",i);
-     printf ("Executing command ./main...\n");
-    i=system ("psexec -i -s main.exe");
-    printf ("The value returned was: %d.\n",i);
-    
-    cout << i << "\n";
+
+    // adds the new line to list
+    addToList(lineToAdd, "std::cout << \"this line was added \\n\";");
+
+
+    for (int i = 0; i < codeVector.size(); i++)
+    {
+        std::cout << codeVector[i] << "\n";
+    }
+
+    writeToFile();
 
     return 0;
 }
@@ -62,4 +65,30 @@ std::string removeSpaces(string inputValue)
             valueWithoutSpaces += inputValue[i];
 
     return valueWithoutSpaces;
+}
+
+void addToList(int index, string newLine)
+{
+    codeVector.push_back("");
+
+    for(int i = codeVector.size() - 1; i > index; i--)
+    {
+        codeVector[i] = codeVector[i-1];
+    }
+
+    codeVector[index + 1] = newLine;
+}
+
+void writeToFile()
+{
+    std::ofstream outPutFile;
+
+    outPutFile.open("main.cpp");
+
+    for(int i = 0 ; i < codeVector.size(); i++)
+    {
+        outPutFile << codeVector[i] << "\n";
+    }
+
+    outPutFile.close();
 }
